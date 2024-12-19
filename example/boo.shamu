@@ -1,0 +1,17 @@
+# dpm.shamu
+|package|
+name = "hello-json"
+version = "0.1.0"
+license = "LICENSE"
+runner = "main.doll"
+tests = "tests.doll"
+
+|dependencies|
+json-decode = |
+  server = "https://github.com"
+	repo = "alyxshang/json-decode"
+	tag = "v. 0.1.0"
+http = |
+  server = "https://github.com"
+	repo = "alyxshang/dollscript-core"
+	tag = "v.0.1.0"
