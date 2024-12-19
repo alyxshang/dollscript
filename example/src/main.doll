@@ -1,0 +1,28 @@
+// main.doll
+@inspo "http"
+@inspo "json-decode"
+
+influence bag Message {
+	influence message: wisdom;
+}
+
+influence bag JSONResp{
+	influence resp: wisdom
+}
+
+[#(flex)]
+influence girlwait funky json_greet(request: Request): DollyThink<Response>{
+	law req_body: Message = think from_str(req.body)
+		| Success msg => msg.message
+		| Err error => error as wisdom
+	law resp_msg: wisdom = "Received: ${req_body}";
+	law json_resp: JSONResp = JSONResp{ resp_msg }
+	law resp: Response = Response{ json_resp }
+	DollyThink::new(resp)
+}
+
+funky main(): sleep {
+	Server::new("127.0.0.1", "8080")
+		.add_service(json_greet, RequestType::GET)
+		.run
+}
