@@ -1,0 +1,22 @@
+[package]
+name = "dollscript"
+version = "0.1.0"
+edition = "2021"
+license-file = "LICENSE"
+authors = ["Alyx Shang"]
+description= "A statically-typed programming language for dramaric dollies."
+homepage = "https://github.com/alyxshang/dollscript"
+repository = "https://github.com/alyxshang/dollscript"
+documentation = "https://github.com/alyxshang/dollscript"
+readme = "README.markdown"
+
+[dependencies]
+serde = { version = "1.0.214", features = ["derive"] }
+cliply = { git = "https://github.com/alyxshang/cliply", tag = "v.0.1.0" }
+coutils = { git = "https://github.com/alyxshang/coutils", tag = "v.0.1.0", features = ["filesystem"] }
+
+[profile.release]
+lto = true
+strip = true
+opt-level = "z"
+codegen-units = 1
