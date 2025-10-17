@@ -259,38 +259,38 @@ pub fn tokenize(
             }
             else if current == '\n'{
                 let token: Token = Token::new(
+                    &(cursor+1),
                     &cursor, 
-                    &(cursor+1), 
                     &None, 
-                    &TokenType::DivideSign
+                    &TokenType::NewLine
                 );
                 stream.push(token);
                 cursor += 1;
             }
            else if current == ' '{
                 let token: Token = Token::new(
+                    &(cursor+1),
                     &cursor, 
-                    &(cursor+1), 
                     &None, 
-                    &TokenType::DollarSign
+                    &TokenType::WhiteSpace
                 );
                 stream.push(token);
                 cursor += 1;
             }
             else if current == '?'{
                 let token: Token = Token::new(
+                    &(cursor+1),
                     &cursor, 
-                    &(cursor+1), 
                     &None, 
-                    &TokenType::DollarSign
+                    &TokenType::TernaryOperator
                 );
                 stream.push(token);
                 cursor += 1;
             }
             else if current == '='{
                 let token: Token = Token::new(
+                    &(cursor+1),
                     &cursor, 
-                    &(cursor+1), 
                     &None, 
                     &TokenType::Assign
                 );
@@ -299,8 +299,8 @@ pub fn tokenize(
             }
             else if current == '>'{
                 let token: Token = Token::new(
+                    &(cursor+1),
                     &cursor, 
-                    &(cursor+1), 
                     &None, 
                     &TokenType::GreaterThan
                 );
@@ -309,8 +309,8 @@ pub fn tokenize(
             }
             else if current == '<'{
                 let token: Token = Token::new(
+                    &(cursor+1),
                     &cursor, 
-                    &(cursor+1), 
                     &None, 
                     &TokenType::SmallerThan
                 );
@@ -319,16 +319,15 @@ pub fn tokenize(
             }
             else if current == '|'{
                 let token: Token = Token::new(
-                    &cursor, 
-                    &(cursor+1), 
+                    &(cursor+1),
+                    &cursor,
                     &None, 
                     &TokenType::LoopArgument
                 );
                 stream.push(token);
                 cursor += 1;
             }
-
-            /*else if current == '=' &&
+            else if current == '=' &&
                 chars[cursor + 1] == '='
             {
                 let token: Token = Token::new(
@@ -740,7 +739,7 @@ pub fn tokenize(
                     &TokenType::UserIdent
                 );
                 stream.push(token);
-            }*/
+            }
             else {
                 let e: String = format!(
                     "Unexepcted token at position \"{:?}\"!", 

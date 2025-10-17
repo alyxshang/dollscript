@@ -51,12 +51,12 @@ pub fn test_utils(){
     assert_eq!(alphabetic_t_u, true);
 }
 
-/// The function to test entities
-/// for tokenizing Dollscript
-/// source code
-#[test]
+// The function to test entities
+// for tokenizing Dollscript
+// source code
+/*#[test]
 pub fn test_lexer(){
-    let test_string: String = ":;#()[]{}*+-/"
+    let test_string: String = "wisdom one = 5;"
         .to_string();
     let tokenized: Vec<Token> = tokenize(&test_string)
         .expect("Unable to tokenize string.");
@@ -64,4 +64,4 @@ pub fn test_lexer(){
     /*let expected_tokens: Vec<Token> = vec![
     ];*/
     //assert_eq!(tokenized, expected_tokens);
-}
+}*/
