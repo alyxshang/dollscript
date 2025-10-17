@@ -14,7 +14,7 @@ degree by the culture around [*Yami Kawaii*](https://aesthetics.fandom.com/wiki/
 
 ## TO DO :warning:
 
-- [ ] Lexer.
+- [x] Lexer.
 - [ ] Parser.
 - [ ] Intermediate-representation-generator.
 - [ ] Instructionset-generator.
