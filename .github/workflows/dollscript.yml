@@ -1,0 +1,12 @@
+name: DOLLSCRIPT CI
+on: push
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Run unit tests.
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
