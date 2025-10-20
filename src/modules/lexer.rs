@@ -24,6 +24,7 @@ use super::utils::is_alphabetic;
 #[derive(PartialEq, Debug, Clone)]
 pub enum TokenType{
     Colon, // used.
+    Comma, 
     Assign, // used.
     IsEqual, // used.
     NewLine, // used.
@@ -61,7 +62,7 @@ pub enum TokenType{
     WisdomKeyword, // used.
     IntegerNumber, // used.
     RangeOperator, // used.
-    FloatingNumber,
+    FloatingNumber, // used.
     GreaterOrEqual, // used.
     SmallerOrEqual, // used.
     TernaryOperator, // used.
@@ -147,6 +148,17 @@ pub fn tokenize(
                 stream.push(token);
                 cursor += 1;
             }
+            else if current == ','{
+                let token: Token = Token::new( 
+                    &(cursor+1),
+                    &cursor,
+                    &None, 
+                    &TokenType::Comma
+                );
+                stream.push(token);
+                cursor += 1;
+            }
+
             else if current == '#'{
                 let token: Token = Token::new( 
                     &(cursor+1), 
@@ -242,7 +254,7 @@ pub fn tokenize(
                     &(cursor+1),
                     &cursor,
                     &None, 
-                    &TokenType::PlusSign
+                    &TokenType::MinusSign
                 );
                 stream.push(token);
                 cursor += 1;
@@ -403,7 +415,7 @@ pub fn tokenize(
             else if current == 'f' &&
                 chars[cursor + 1] == 'l' &&
                 chars[cursor + 2] == 'e' &&
-                chars[cursor + 3] == 'e'
+                chars[cursor + 3] == 'x'
 
             {
                 let token: Token = Token::new(
@@ -614,7 +626,7 @@ pub fn tokenize(
                     &cursor, 
                     &(cursor+3), 
                     &None, 
-                    &TokenType::SwitchupKeyword
+                    &TokenType::StructureKeyword
                 );
                 stream.push(token);
                 cursor += 3;

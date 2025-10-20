@@ -56,7 +56,7 @@ pub fn test_utils(){
 // source code
 /*#[test]
 pub fn test_lexer(){
-    let test_string: String = "wisdom one = 5;"
+    let test_string: String = ":;,#()[]{}*+-/\n?=><|==>==<=>..booflexglamrockfalseloopzistoofrostyinsposlayywisdommoveswitchupbagas::<3Comment here.\n345"Hello"myVariable"
         .to_string();
     let tokenized: Vec<Token> = tokenize(&test_string)
         .expect("Unable to tokenize string.");
