@@ -4,11 +4,6 @@ Licensed under the FSL v1.
 */
 
 /// Importing the structure
-/// to work with paths in
-/// an operating-system-agnostic
-/// way.
-use std::path::PathBuf;
-
 /// Importing the structure
 /// encapsulating data about
 /// a cpatured token.
@@ -54,9 +49,9 @@ pub fn test_utils(){
 // The function to test entities
 // for tokenizing Dollscript
 // source code
-/*#[test]
+#[test]
 pub fn test_lexer(){
-    let test_string: String = ":;,#()[]{}*+-/\n?=><|==>==<=>..booflexglamrockfalseloopzistoofrostyinsposlayywisdommoveswitchupbagas::<3Comment here.\n345"Hello"myVariable"
+    let test_string: String = ":;,#()[]{}*+-/\n?=><|==>==<=>..booflexglamrockfalseloopzistoofrostyinsposlayywisdommoveswitchupbagas::<3Comment here.\n345\"Hello\"myVariable"
         .to_string();
     let tokenized: Vec<Token> = tokenize(&test_string)
         .expect("Unable to tokenize string.");
@@ -64,4 +59,4 @@ pub fn test_lexer(){
     /*let expected_tokens: Vec<Token> = vec![
     ];*/
     //assert_eq!(tokenized, expected_tokens);
-}*/
+}

@@ -23,54 +23,54 @@ use super::utils::is_alphabetic;
 /// source code.
 #[derive(PartialEq, Debug, Clone)]
 pub enum TokenType{
-    Colon, // used.
+    Colon,
     Comma, 
-    Assign, // used.
-    IsEqual, // used.
-    NewLine, // used.
-    PlusSign, // used.
-    HashSign, // used.
-    SemiColon, // used.
-    OpenCurly, // used.
-    UserIdent, // used.
-    MinusSign, // used.
-    TimesSign, // used.
-    DivideSign, // used.
-    UserString, // used.
-    CloseCurly, // used.
-    BooKeyword, // used.
-    WhiteSpace, // used.
-    OpenSquare, // used.
-    CloseSquare, // used.
-    FlexKeyword, // used.
-    GlamKeyword, // used.
-    UserComment, // used.
-    GreaterThan, // used.
-    SmallerThan, // used.
-    OpenBracket, // used.
-    BooleanTrue, // used.
-    RockKeyword, // used.
-    LoopArgument, // used.
-    CaseOperator, // used.
-    BooleanFalse, // used.
-    LoopzKeyword, // used.
-    CloseBracket, // used.
-    IsTooKeyword, // used.
-    FrostyKeyword, // used.
-    ImportKeyword, // used.
-    PublicKeyword, // used.
-    WisdomKeyword, // used.
-    IntegerNumber, // used.
-    RangeOperator, // used.
-    FloatingNumber, // used.
-    GreaterOrEqual, // used.
-    SmallerOrEqual, // used.
-    TernaryOperator, // used.
-    FunctionKeyword, // used.
-    SwitchupKeyword, // used.
-    StructureKeyword, // used.
-    NamespacingKeyword, // used.
-    DoubleColonOperator, // used.
+    Assign,
+    IsEqual,
+    NewLine,
+    PlusSign,
+    HashSign,
+    SemiColon,
+    OpenCurly,
+    UserIdent,
+    MinusSign,
+    TimesSign,
+    DivideSign,
+    UserString,
+    CloseCurly,
+    BooKeyword,
+    WhiteSpace,
+    OpenSquare,
+    CloseSquare,
+    FlexKeyword,
+    GlamKeyword,
+    UserComment,
+    GreaterThan,
+    SmallerThan,
+    OpenBracket,
+    BooleanTrue,
+    RockKeyword,
+    LoopArgument,
+    CaseOperator,
+    BooleanFalse,
+    LoopzKeyword,
+    CloseBracket,
+    IsTooKeyword, 
+    FrostyKeyword,
+    ImportKeyword,
+    PublicKeyword,
+    WisdomKeyword,
+    IntegerNumber,
+    RangeOperator,
+    FloatingNumber,
+    GreaterOrEqual,
+    SmallerOrEqual,
+    TernaryOperator,
+    FunctionKeyword,
+    SwitchupKeyword,
+    StructureKeyword,
+    NamespacingKeyword, 
+    DoubleColonOperator,
 }
 
 /// A structure to encapsulate
@@ -675,7 +675,7 @@ pub fn tokenize(
                 stream.push(token);
             }
 
-            /*else if is_numeric(&current){
+            else if is_numeric(&current){
                 let start: usize = cursor.clone();
                 let mut str_buf: Vec<char> = Vec::new();
                 while !is_numeric(&chars[cursor])  || chars[cursor] != '.' && cursor < chars.len(){
@@ -716,7 +716,7 @@ pub fn tokenize(
                         DollscriptErr::new(&e.to_string())
                     );
                 }
-            }*/
+            }
             else if current == '"'{
                 let start: usize = cursor.clone();
                 let mut str_buf: Vec<char> = Vec::new();

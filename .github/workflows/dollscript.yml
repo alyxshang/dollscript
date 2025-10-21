@@ -10,3 +10,13 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
+#      - name: Run a Dollscript script.
+#        uses: actions-rs/cargo@v1
+#        with:
+#          command: run
+#          args: -- --run sample/sample.doll
+#      - name: Compile Dollscript script.
+#        uses: actions-rs/cargo@v1
+#        with:
+#          command: run
+#          args: -- --build sample/sample.doll
