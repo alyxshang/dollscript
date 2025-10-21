@@ -12,6 +12,30 @@ language of my own design and conception. It was inspired by the
 [*BratzDolls*](https://en.wikipedia.org/wiki/Bratz) and to a lesser 
 degree by the culture around [*Yami Kawaii*](https://aesthetics.fandom.com/wiki/Yami_Kawaii).
 
+## LANGUAGE SAMPLE :gear:
+
+```Text
+inspo "std" as std;
+
+slayy bag Person{
+    name: tea,
+    age: cash,
+}
+
+slayy move makePerson(name: tea, age: cash): Person{
+    Person{ name, age }
+}
+
+slayy move greetPerson(person: *Person): sleep {
+    std::print("Hello from Dollscript, ${person.name}!");
+}
+
+move main(): sleep {
+    wisdom purrson: Person = makePerson("Alyx", 2025);
+    greetPerson(*purrson);
+}
+```
+
 ## TO DO :warning:
 
 - [x] Lexer.
