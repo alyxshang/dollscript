@@ -15,6 +15,9 @@ degree by the culture around [*Yami Kawaii*](https://aesthetics.fandom.com/wiki/
 ## LANGUAGE SAMPLE :gear:
 
 ```Text
+<3 Dollscript by Alyx Shang.
+<3 Licensed under the FSL v1.
+
 inspo "std" as std;
 
 slayy bag Person{
