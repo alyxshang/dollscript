@@ -9,12 +9,12 @@ homepage = "https://github.com/alyxshang/dollscript"
 repository = "https://github.com/alyxshang/dollscript"
 readme = "README.markdown"
 
-[[bin]]
-path = "src/main.rs"
-name = "dolly"
+#[[bin]]
+#path = "src/main.rs"
+#name = "dolly"
 
-[profile.release]
-lto = true
-strip = true
-opt-level = "z"
-codegen-units = 1
+#[profile.release]
+#lto = true
+#strip = true
+#opt-level = "z"
+#codegen-units = 1

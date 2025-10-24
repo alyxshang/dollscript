@@ -28,3 +28,9 @@ pub mod utils;
 /// a token stream. 
 pub mod lexer;
 
+/// Exporting the module
+/// containing entities
+/// for constructing a
+/// syntax tree from a 
+/// stream of tokens.
+pub mod parser;

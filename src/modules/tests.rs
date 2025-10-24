@@ -4,9 +4,8 @@ Licensed under the FSL v1.
 */
 
 /// Importing the structure
-/// Importing the structure
 /// encapsulating data about
-/// a cpatured token.
+/// a captured token.
 use super::lexer::Token;
 
 /// Importing the function
@@ -19,19 +18,14 @@ use super::lexer::tokenize;
 /// is numeric.
 use super::utils::is_numeric;
 
-/// Importing to check whether
-/// an ident contains valid
-/// characters.
-use super::utils::is_alphabetic;
-
 /// Importing the function
-/// to read a string from a
-/// text file.
-use std::fs::read_to_string;
+/// to check whether an ident 
+/// contains valid characters.
+use super::utils::is_alphabetic;
 
 /// The function to test entities
 /// inside the module containing
-/// utlity functions.
+/// utility functions.
 #[test]
 pub fn test_utils(){
     let numeric_f: bool = is_numeric(&'c');
@@ -46,9 +40,9 @@ pub fn test_utils(){
     assert_eq!(alphabetic_t_u, true);
 }
 
-// The function to test entities
-// for tokenizing Dollscript
-// source code
+/// The function to test entities
+/// for tokenizing Dollscript
+/// source code.
 #[test]
 pub fn test_lexer(){
     let test_string: String = ":;,#()[]{}*+-/\n?=><|==>==<=>..booflexglamrockfalseloopzistoofrostyinsposlayywisdommoveswitchupbagas::<3Comment here.\n345\"Hello\"myVariable"
@@ -56,7 +50,4 @@ pub fn test_lexer(){
     let tokenized: Vec<Token> = tokenize(&test_string)
         .expect("Unable to tokenize string.");
     println!("{:?}", tokenized);
-    /*let expected_tokens: Vec<Token> = vec![
-    ];*/
-    //assert_eq!(tokenized, expected_tokens);
 }
