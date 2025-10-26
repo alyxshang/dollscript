@@ -376,14 +376,37 @@ pub fn tokenize(
                 }
             }
             else if current == '<'{
-                let token: Token = Token::new(
-                    &(cursor+1),
-                    &cursor, 
-                    &None, 
-                    &TokenType::SmallerThan
-                );
-                stream.push(token);
-                cursor += 1;
+                if chars.get(cursor+1) == Some(&'3'){
+                    let start: usize = cursor.clone();
+                    let mut str_buf: Vec<char> = Vec::new();
+                    while let Some(&c) = chars.get(cursor){
+                        if c == '\n'{
+                            break;
+                        }
+                        else {
+                            str_buf.push(c);
+                        }
+                        cursor += 1;
+                    }
+                    let token: Token = Token::new(
+                        &(cursor+1),
+                        &start, 
+                        &None, 
+                        &TokenType::UserComment
+                    );
+                    stream.push(token);
+                    cursor += 1;
+                }
+                else {
+                    let token: Token = Token::new(
+                        &(cursor+1),
+                        &cursor, 
+                        &None, 
+                        &TokenType::SmallerThan
+                    );
+                    stream.push(token);
+                    cursor += 1;
+                }
             }
             else if current == '|'{
                 let token: Token = Token::new(
@@ -655,7 +678,6 @@ pub fn tokenize(
                 let start: usize = cursor.clone();
                 let mut str_buf: Vec<char> = Vec::new();
                 while let Some(&c) = chars.get(cursor){
-                    println!("{}", &c);
                     if is_numeric(&c){
                         str_buf.push(c);
                     }

@@ -55,7 +55,7 @@ pub fn test_lexer(){
         .to_string();
     let tokenized: Vec<Token> = tokenize(&test_string)
         .expect("Unable to tokenize string.");
-    let expexcted: Vec<Token> = vec![
+    let expected: Vec<Token> = vec![
         Token::new(&1,&0,&None,&TokenType::Colon), 
         Token::new(&2,&1,&None,&TokenType::SemiColon), 
         Token::new(&3,&2,&None,&TokenType::Comma), 
@@ -102,5 +102,16 @@ pub fn test_lexer(){
         Token::new(&117,&119,&Some("34".to_string()),&TokenType::IntegerNumber), 
         Token::new(&119,&127,&Some("my_ident".to_string()),&TokenType::UserIdent)
     ];
-    assert_eq!(tokenized, expexcted);
+    let extra_str: String = "my_ident\n<3 This is a comment.\n34"
+        .to_string();
+    let extra_str_tokenized: Vec<Token> = tokenize(&extra_str)
+        .expect("Unable to tokenize extra string.");
+    let extra_str_expected: Vec<Token> = vec![
+        Token::new(&0,&8,&Some("my_ident".to_string()),&TokenType::UserIdent), 
+        Token::new(&9,&8,&None,&TokenType::NewLine), 
+        Token::new(&31,&9,&None,&TokenType::UserComment), 
+        Token::new(&31,&33,&Some("34".to_string()),&TokenType::IntegerNumber)
+    ];
+    assert_eq!(tokenized, expected);
+    assert_eq!(extra_str_tokenized, extra_str_expected);
 }
