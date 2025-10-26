@@ -129,14 +129,26 @@ pub fn tokenize(
         while cursor < chars.len(){
             let current: char = chars[cursor];
             if current == ':'{
-                let token: Token = Token::new( 
-                    &(cursor+1), 
-                    &cursor,
-                    &None, 
-                    &TokenType::Colon
-                );
-                stream.push(token);
-                cursor += 1;
+                if chars.get(cursor + 1) == Some(&':'){
+                    let token: Token = Token::new( 
+                        &(cursor+2), 
+                        &cursor,
+                        &None, 
+                        &TokenType::DoubleColonOperator
+                    );
+                    stream.push(token);
+                    cursor += 2;
+                }
+                else {
+                    let token: Token = Token::new( 
+                        &(cursor+1), 
+                        &cursor,
+                        &None, 
+                        &TokenType::Colon
+                    );
+                    stream.push(token);
+                    cursor += 1;
+                }
             }
             else if current == ';'{
                 let token: Token = Token::new( 
@@ -300,24 +312,68 @@ pub fn tokenize(
                 cursor += 1;
             }
             else if current == '='{
-                let token: Token = Token::new(
-                    &(cursor+1),
-                    &cursor, 
-                    &None, 
-                    &TokenType::Assign
-                );
-                stream.push(token);
-                cursor += 1;
+                if chars.get(cursor+1) == Some(&'='){
+                    let token: Token = Token::new(
+                        &(cursor+2),
+                        &cursor, 
+                        &None, 
+                        &TokenType::IsEqual
+                    );
+                    stream.push(token);
+                    cursor += 2;
+                }
+                else if chars.get(cursor+1) == Some(&'>'){
+                    let token: Token = Token::new(
+                        &(cursor+2),
+                        &cursor, 
+                        &None, 
+                        &TokenType::CaseOperator
+                    );
+                    stream.push(token);
+                    cursor += 2;
+                }
+                else if chars.get(cursor+1) == Some(&'<'){
+                    let token: Token = Token::new(
+                        &(cursor+2),
+                        &cursor, 
+                        &None, 
+                        &TokenType::SmallerOrEqual
+                    );
+                    stream.push(token);
+                    cursor += 2;
+                }
+                else {
+                    let token: Token = Token::new(
+                        &(cursor+1),
+                        &cursor, 
+                        &None, 
+                        &TokenType::Assign
+                    );
+                    stream.push(token);
+                    cursor += 1;
+                }
             }
             else if current == '>'{
-                let token: Token = Token::new(
-                    &(cursor+1),
-                    &cursor, 
-                    &None, 
-                    &TokenType::GreaterThan
-                );
-                stream.push(token);
-                cursor += 1;
+                if chars[cursor+1] == '='{
+                    let token: Token = Token::new(
+                        &(cursor+2),
+                        &cursor, 
+                        &None, 
+                        &TokenType::GreaterOrEqual
+                    );
+                    stream.push(token);
+                    cursor += 2;
+                }
+                else {
+                    let token: Token = Token::new(
+                        &(cursor+1),
+                        &cursor, 
+                        &None, 
+                        &TokenType::GreaterThan
+                    );
+                    stream.push(token);
+                    cursor += 1;
+                }
             }
             else if current == '<'{
                 let token: Token = Token::new(
@@ -338,57 +394,9 @@ pub fn tokenize(
                 );
                 stream.push(token);
                 cursor += 1;
-            }
-            else if current == '=' &&
-                chars[cursor + 1] == '='
-            {
-                let token: Token = Token::new(
-                    &cursor, 
-                    &(cursor+2), 
-                    &None, 
-                    &TokenType::IsEqual
-                );
-                stream.push(token);
-                cursor += 2;
-            }
-            else if current == '>' &&
-                chars[cursor + 1] == '='
-            {
-                let token: Token = Token::new(
-                    &cursor, 
-                    &(cursor+2), 
-                    &None, 
-                    &TokenType::GreaterOrEqual
-                );
-                stream.push(token);
-                cursor += 2;
-            }
-            else if current == '=' &&
-                chars[cursor + 1] == '<'
-            {
-                let token: Token = Token::new(
-                    &cursor, 
-                    &(cursor+2), 
-                    &None, 
-                    &TokenType::SmallerOrEqual
-                );
-                stream.push(token);
-                cursor += 2;
-            }
-            else if current == '=' &&
-                chars[cursor + 1] == '>'
-            {
-                let token: Token = Token::new(
-                    &cursor, 
-                    &(cursor+2), 
-                    &None, 
-                    &TokenType::CaseOperator
-                );
-                stream.push(token);
-                cursor += 2;
-            }
+            } 
             else if current == '.' &&
-                chars[cursor + 1] == '.'
+                chars.get(cursor + 1) == Some(&'.')
             {
                 let token: Token = Token::new(
                     &cursor, 
@@ -400,8 +408,8 @@ pub fn tokenize(
                 cursor += 2;
             }
             else if current == 'b' &&
-                chars[cursor + 1] == 'o' &&
-                chars[cursor + 2] == 'o'
+                chars.get(cursor + 1) == Some(&'o') &&
+                chars.get(cursor + 2) == Some(&'o')
             {
                 let token: Token = Token::new(
                     &cursor, 
@@ -413,9 +421,9 @@ pub fn tokenize(
                 cursor += 3;
             }
             else if current == 'f' &&
-                chars[cursor + 1] == 'l' &&
-                chars[cursor + 2] == 'e' &&
-                chars[cursor + 3] == 'x'
+                chars.get(cursor + 1) == Some(&'l') &&
+                chars.get(cursor + 2) == Some(&'e') &&
+                chars.get(cursor + 3) == Some(&'x')
 
             {
                 let token: Token = Token::new(
@@ -428,9 +436,9 @@ pub fn tokenize(
                 cursor += 4;
             }
             else if current == 'g' &&
-                chars[cursor + 1] == 'l' &&
-                chars[cursor + 2] == 'a' &&
-                chars[cursor + 3] == 'm'
+                chars.get(cursor + 1) == Some(&'l') &&
+                chars.get(cursor + 2) == Some(&'a') &&
+                chars.get(cursor + 3) == Some(&'m')
 
             {
                 let token: Token = Token::new(
@@ -443,9 +451,9 @@ pub fn tokenize(
                 cursor += 4;
             }
             else if current == 't' &&
-                chars[cursor + 1] == 'r' &&
-                chars[cursor + 2] == 'u' &&
-                chars[cursor + 3] == 'e'
+                chars.get(cursor + 1) == Some(&'r') &&
+                chars.get(cursor + 2) == Some(&'u') &&
+                chars.get(cursor + 3) == Some(&'e')
 
             {
                 let token: Token = Token::new(
@@ -458,9 +466,9 @@ pub fn tokenize(
                 cursor += 4;
             }
             else if current == 'r' &&
-                chars[cursor + 1] == 'o' &&
-                chars[cursor + 2] == 'c' &&
-                chars[cursor + 3] == 'k'
+                chars.get(cursor + 1) == Some(&'o') &&
+                chars.get(cursor + 2) == Some(&'c') &&
+                chars.get(cursor + 3) == Some(&'k')
 
             {
                 let token: Token = Token::new(
@@ -473,10 +481,10 @@ pub fn tokenize(
                 cursor += 4;
             }
             else if current == 'f' &&
-                chars[cursor + 1] == 'a' &&
-                chars[cursor + 2] == 'l' &&
-                chars[cursor + 3] == 's' &&
-                chars[cursor + 4] == 'e'
+                chars.get(cursor + 1) == Some(&'a') &&
+                chars.get(cursor + 2) == Some(&'l') &&
+                chars.get(cursor + 3) == Some(&'s') &&
+                chars.get(cursor + 4) == Some(&'e')
 
             {
                 let token: Token = Token::new(
@@ -489,10 +497,10 @@ pub fn tokenize(
                 cursor += 5;
             }
             else if current == 'l' &&
-                chars[cursor + 1] == 'o' &&
-                chars[cursor + 2] == 'o' &&
-                chars[cursor + 3] == 'p' &&
-                chars[cursor + 4] == 'z'
+                chars.get(cursor + 1) == Some(&'o') &&
+                chars.get(cursor + 2) == Some(&'o') &&
+                chars.get(cursor + 3) == Some(&'p') &&
+                chars.get(cursor + 4) == Some(&'z')
 
             {
                 let token: Token = Token::new(
@@ -505,10 +513,10 @@ pub fn tokenize(
                 cursor += 5;
             }
             else if current == 'i' &&
-                chars[cursor + 1] == 's' &&
-                chars[cursor + 2] == 't' &&
-                chars[cursor + 3] == 'o' &&
-                chars[cursor + 4] == 'o'
+                chars.get(cursor + 1) == Some(&'s') &&
+                chars.get(cursor + 2) == Some(&'t') &&
+                chars.get(cursor + 3) == Some(&'o') &&
+                chars.get(cursor + 4) == Some(&'o')
 
             {
                 let token: Token = Token::new(
@@ -521,11 +529,11 @@ pub fn tokenize(
                 cursor += 5;
             }
             else if current == 'f' &&
-                chars[cursor + 1] == 'r' &&
-                chars[cursor + 2] == 'o' &&
-                chars[cursor + 3] == 's' &&
-                chars[cursor + 4] == 't' &&
-                chars[cursor + 5] == 'y'
+                chars.get(cursor + 1) == Some(&'r') &&
+                chars.get(cursor + 2) == Some(&'o') &&
+                chars.get(cursor + 3) == Some(&'s') &&
+                chars.get(cursor + 4) == Some(&'t') &&
+                chars.get(cursor + 5) == Some(&'y')
 
             {
                 let token: Token = Token::new(
@@ -538,10 +546,10 @@ pub fn tokenize(
                 cursor += 6;
             }
             else if current == 'i' &&
-                chars[cursor + 1] == 'n' &&
-                chars[cursor + 2] == 's' &&
-                chars[cursor + 3] == 'p' &&
-                chars[cursor + 4] == 'o'
+                chars.get(cursor + 1) == Some(&'n') &&
+                chars.get(cursor + 2) == Some(&'s') &&
+                chars.get(cursor + 3) == Some(&'p') &&
+                chars.get(cursor + 4) == Some(&'o')
 
             {
                 let token: Token = Token::new(
@@ -554,10 +562,10 @@ pub fn tokenize(
                 cursor += 5;
             }
             else if current == 's' &&
-                chars[cursor + 1] == 'l' &&
-                chars[cursor + 2] == 'a' &&
-                chars[cursor + 3] == 'y' &&
-                chars[cursor + 4] == 'y'
+                chars.get(cursor + 1) == Some(&'l') &&
+                chars.get(cursor + 2) == Some(&'a') &&
+                chars.get(cursor + 3) == Some(&'y') &&
+                chars.get(cursor + 4) == Some(&'y')
 
             {
                 let token: Token = Token::new(
@@ -570,11 +578,11 @@ pub fn tokenize(
                 cursor += 5;
             }
             else if current == 'w' &&
-                chars[cursor + 1] == 'i' &&
-                chars[cursor + 2] == 's' &&
-                chars[cursor + 3] == 'd' &&
-                chars[cursor + 4] == 'o' &&
-                chars[cursor + 5] == 'm'
+                chars.get(cursor + 1) == Some(&'i') &&
+                chars.get(cursor + 2) == Some(&'s') &&
+                chars.get(cursor + 3) == Some(&'d') &&
+                chars.get(cursor + 4) == Some(&'o') &&
+                chars.get(cursor + 5) == Some(&'m')
 
             {
                 let token: Token = Token::new(
@@ -587,9 +595,9 @@ pub fn tokenize(
                 cursor += 6;
             }
             else if current == 'm' &&
-                chars[cursor + 1] == 'o' &&
-                chars[cursor + 2] == 'v' &&
-                chars[cursor + 3] == 'e'
+                chars.get(cursor + 1) == Some(&'o') &&
+                chars.get(cursor + 2) == Some(&'v') &&
+                chars.get(cursor + 3) == Some(&'e')
             {
                 let token: Token = Token::new(
                     &cursor, 
@@ -601,13 +609,13 @@ pub fn tokenize(
                 cursor += 4;
             }
             else if current == 's' &&
-                chars[cursor + 1] == 'w' &&
-                chars[cursor + 2] == 'i' &&
-                chars[cursor + 3] == 't' &&
-                chars[cursor + 4] == 'c' &&
-                chars[cursor + 5] == 'h' &&
-                chars[cursor + 6] == 'u' &&
-                chars[cursor + 7] == 'p'
+                chars.get(cursor + 1) == Some(&'w') &&
+                chars.get(cursor + 2) == Some(&'i') &&
+                chars.get(cursor + 3) == Some(&'t') &&
+                chars.get(cursor + 4) == Some(&'c') &&
+                chars.get(cursor + 5) == Some(&'h') &&
+                chars.get(cursor + 6) == Some(&'u') &&
+                chars.get(cursor + 7) == Some(&'p')
             {
                 let token: Token = Token::new(
                     &cursor, 
@@ -619,8 +627,8 @@ pub fn tokenize(
                 cursor += 8;
             }
             else if current == 'b' &&
-                chars[cursor + 1] == 'a' &&
-                chars[cursor + 2] == 'g'
+                chars.get(cursor + 1) == Some(&'a') &&
+                chars.get(cursor + 2) == Some(&'g')
             {
                 let token: Token = Token::new(
                     &cursor, 
@@ -632,54 +640,31 @@ pub fn tokenize(
                 cursor += 3;
             }
             else if current == 'a' &&
-                chars[cursor + 1] == 's'
+                chars.get(cursor + 1) == Some(&'s')
             {
                 let token: Token = Token::new(
                     &cursor, 
                     &(cursor+2), 
                     &None, 
-                    &TokenType::SwitchupKeyword
+                    &TokenType::NamespacingKeyword
                 );
                 stream.push(token);
                 cursor += 2;
-            }
-            else if current == ':' &&
-                chars[cursor + 1] == ':'
-            {
-                let token: Token = Token::new(
-                    &cursor, 
-                    &(cursor+2), 
-                    &None, 
-                    &TokenType::DoubleColonOperator
-                );
-                stream.push(token);
-                cursor += 2;
-            }
-            else if current == '<' &&
-                chars[cursor + 1] == '3' &&
-                chars[cursor + 2 ] == ' '
-            {
-                let start: usize = cursor.clone();
-                cursor += 3;
-                let mut str_buf: Vec<char> = Vec::new();
-                while chars[cursor] != '\n' && cursor < chars.len(){
-                    str_buf.push(chars[cursor]);
-                    cursor += 1;
-                }
-                let token: Token = Token::new(
-                    &start, 
-                    &(cursor+2), 
-                    &Some(str_buf.iter().collect::<String>()), 
-                    &TokenType::UserComment
-                );
-                stream.push(token);
-            }
-
+            } 
             else if is_numeric(&current){
                 let start: usize = cursor.clone();
                 let mut str_buf: Vec<char> = Vec::new();
-                while !is_numeric(&chars[cursor])  || chars[cursor] != '.' && cursor < chars.len(){
-                    str_buf.push(chars[cursor]);
+                while let Some(&c) = chars.get(cursor){
+                    println!("{}", &c);
+                    if is_numeric(&c){
+                        str_buf.push(c);
+                    }
+                    else if c == '.' {
+                        str_buf.push(c);
+                    }
+                    else {
+                        break;
+                    }
                     cursor += 1;
                 }
                 let joined: String = str_buf
@@ -709,7 +694,7 @@ pub fn tokenize(
                 }
                 else {
                     let e: String = format!(
-                        "Unexepcted token at position \"{:?}\"!", 
+                        "Unexpcted token at position \"{:?}\"!", 
                         &cursor
                     );
                     return Err::<Vec<Token>, DollscriptErr>(
@@ -720,15 +705,18 @@ pub fn tokenize(
             else if current == '"'{
                 let start: usize = cursor.clone();
                 let mut str_buf: Vec<char> = Vec::new();
-                while chars[cursor] != '"' &&
-                    cursor < chars.len()
+                cursor += 1;
+                while chars.get(cursor) != Some(&'"')
                 {
-                    str_buf.push(chars[cursor]);
+                    match chars.get(cursor){
+                        Some(c) => str_buf.push(*c),
+                        None => {}
+                    };
                     cursor += 1;
                 }
                 let token: Token = Token::new(
-                    &start, 
                     &(cursor+1), 
+                    &start, 
                     &Some(str_buf.iter().collect::<String>()), 
                     &TokenType::UserString
                 );
@@ -738,10 +726,13 @@ pub fn tokenize(
             else if is_alphabetic(&current){
                 let start: usize = cursor.clone();
                 let mut str_buf: Vec<char> = Vec::new();
-                while !is_alphabetic(&chars[cursor]) && 
-                    cursor < chars.len()
-                {
-                    str_buf.push(chars[cursor]);
+                while let Some(&c) = chars.get(cursor){
+                    if is_alphabetic(&c){
+                        str_buf.push(c);
+                    }
+                    else {
+                        break;
+                    }
                     cursor += 1;
                 }
                 let token: Token = Token::new(
