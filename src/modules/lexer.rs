@@ -23,31 +23,31 @@ use super::utils::is_alphabetic;
 /// source code.
 #[derive(PartialEq, Debug, Clone)]
 pub enum TokenType{
-    Colon,
-    Comma, 
-    Assign,
+    Colon, // used.
+    Comma,  // used.
+    Assign, // used.
     IsEqual,
     NewLine,
-    PlusSign,
+    PlusSign, // used.
     HashSign,
     SemiColon,
-    OpenCurly,
-    UserIdent,
-    MinusSign,
-    TimesSign,
-    DivideSign,
-    UserString,
+    OpenCurly, // used.
+    UserIdent, // used.
+    MinusSign, // used.
+    TimesSign, // used.
+    DivideSign, // used.
+    UserString, 
     CloseCurly,
-    BooKeyword,
-    WhiteSpace,
+    BooKeyword, // used.
+    WhiteSpace, // used.
     OpenSquare,
     CloseSquare,
     FlexKeyword,
-    GlamKeyword,
-    UserComment,
-    GreaterThan,
-    SmallerThan,
-    OpenBracket,
+    GlamKeyword, // used.
+    UserComment, // used.
+    GreaterThan, // used.
+    SmallerThan, // used.
+    OpenBracket, // used.
     BooleanTrue,
     RockKeyword,
     LoopArgument,
