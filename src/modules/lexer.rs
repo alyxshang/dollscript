@@ -391,7 +391,7 @@ pub fn tokenize(
                     let token: Token = Token::new(
                         &(cursor+1),
                         &start, 
-                        &None, 
+                        &Some(str_buf.iter().collect::<String>()), 
                         &TokenType::UserComment
                     );
                     stream.push(token);
@@ -758,12 +758,34 @@ pub fn tokenize(
                     cursor += 1;
                 }
                 let token: Token = Token::new(
+                    &cursor, 
                     &start, 
-                    &(cursor), 
                     &Some(str_buf.iter().collect::<String>()), 
                     &TokenType::UserIdent
                 );
                 stream.push(token);
+            }
+            else if current == '\r' &&
+                chars.get(cursor + 1) == Some(&'\n')
+            {
+                let token: Token = Token::new(
+                    &(cursor+1), 
+                    &cursor, 
+                    &None, 
+                    &TokenType::NewLine
+                );
+                stream.push(token);
+                cursor += 2;
+            }
+            else if current == '\r'{
+                let token: Token = Token::new(
+                    &cursor, 
+                    &cursor, 
+                    &None, 
+                    &TokenType::NewLine
+                );
+                stream.push(token);
+                cursor += 1;
             }
             else {
                 let e: String = format!(

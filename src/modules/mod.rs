@@ -27,3 +27,11 @@ pub mod utils;
 /// source code and produce
 /// a token stream. 
 pub mod lexer;
+
+/// Exporting the module
+/// containing entities
+/// attempting to build
+/// a syntax tree from
+/// a stream of Dollscript's
+/// tokens.
+pub mod parser;

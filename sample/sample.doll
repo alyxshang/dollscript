@@ -4,19 +4,6 @@
 inspo "std" as std;
 
 slayy bag Person{
-    name: tea,
-    age: cash,
-}
-
-slayy move makePerson(name: tea, age: cash): Person{
-    Person{ name, age }
-}
-
-slayy move greetPerson(person: *Person): sleep {
-    std::print("Hello from Dollscript, ${person.name}!");
-}
-
-move main(): sleep {
-    wisdom purrson: Person = makePerson("Alyx", 2025);
-    greetPerson(*purrson);
+  slayy name: tea,
+  slayy age: likes
 }

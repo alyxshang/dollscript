@@ -4,6 +4,12 @@ Licensed under the FSL v1.
 */
 
 /// Importing the structure
+/// for modelling a file
+/// path in a cross-platform
+/// way.
+use std::path::PathBuf;
+
+/// Importing the structure
 /// encapsulating data about
 /// a captured token.
 use super::lexer::Token;
@@ -18,6 +24,11 @@ use super::lexer::TokenType;
 /// to tokenize a string of
 /// Dollscript source code.
 use super::lexer::tokenize;
+
+/// Importing the function to
+/// read the contents of a file
+/// as a string.
+use std::fs::read_to_string;
 
 /// Importing the function
 /// to check whether a character
@@ -100,18 +111,26 @@ pub fn test_lexer(){
         Token::new(&110,&114,&Some("45.6".to_string()),&TokenType::FloatingNumber), 
         Token::new(&114,&117,&None,&TokenType::BooKeyword), 
         Token::new(&117,&119,&Some("34".to_string()),&TokenType::IntegerNumber), 
-        Token::new(&119,&127,&Some("my_ident".to_string()),&TokenType::UserIdent)
+        Token::new(&127,&119,&Some("my_ident".to_string()),&TokenType::UserIdent)
     ];
     let extra_str: String = "my_ident\n<3 This is a comment.\n34"
         .to_string();
     let extra_str_tokenized: Vec<Token> = tokenize(&extra_str)
         .expect("Unable to tokenize extra string.");
     let extra_str_expected: Vec<Token> = vec![
-        Token::new(&0,&8,&Some("my_ident".to_string()),&TokenType::UserIdent), 
+        Token::new(&8,&0,&Some("my_ident".to_string()),&TokenType::UserIdent), 
         Token::new(&9,&8,&None,&TokenType::NewLine), 
-        Token::new(&31,&9,&None,&TokenType::UserComment), 
+        Token::new(&31,&9,&Some("<3 This is a comment.".to_string()),&TokenType::UserComment), 
         Token::new(&31,&33,&Some("34".to_string()),&TokenType::IntegerNumber)
     ];
+    //let mut file_path_buf: PathBuf = PathBuf::new();
+    //file_path_buf.push(env!("CARGO_MANIFEST_DIR"));
+    //file_path_buf.push("sample/sample.doll");
+    //let sample_str: String = read_to_string(&file_path_buf.display().to_string())
+    //    .expect("Could not read file.");
+    //let sample_tokenized: Vec<Token> = tokenize(&sample_str)
+    //    .expect("Could not tokenize sample string.");
+    //println!("{:?}", sample_tokenized);
     assert_eq!(tokenized, expected);
     assert_eq!(extra_str_tokenized, extra_str_expected);
 }
