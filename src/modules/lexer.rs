@@ -765,27 +765,27 @@ pub fn tokenize(
                 );
                 stream.push(token);
             }
-            else if current == '\r' &&
-                chars.get(cursor + 1) == Some(&'\n')
-            {
-                let token: Token = Token::new(
-                    &(cursor+1), 
-                    &cursor, 
-                    &None, 
-                    &TokenType::NewLine
-                );
-                stream.push(token);
-                cursor += 2;
-            }
             else if current == '\r'{
-                let token: Token = Token::new(
-                    &cursor, 
-                    &cursor, 
-                    &None, 
-                    &TokenType::NewLine
-                );
-                stream.push(token);
-                cursor += 1;
+                if chars.get(cursor + 1) == Some(&'\n'){
+                    let token: Token = Token::new(
+                        &(cursor+1), 
+                        &cursor, 
+                        &None, 
+                        &TokenType::NewLine
+                    );
+                    stream.push(token);
+                    cursor += 2;
+                }
+                else {
+                    let token: Token = Token::new(
+                        &cursor, 
+                        &cursor, 
+                        &None, 
+                        &TokenType::NewLine
+                    );
+                    stream.push(token);
+                    cursor += 1;
+                }
             }
             else {
                 let e: String = format!(
